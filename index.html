@@ -254,10 +254,126 @@
     align-items: center;
     justify-content: center;
     gap: 7px;
-    cursor: default;
+    cursor: pointer;
     transition: all 0.3s cubic-bezier(.23,1,.32,1);
     position: relative;
     overflow: hidden;
+  }
+
+  /* ── MODAL OVERLAY ─────────────────────────────────── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(26,18,8,0.55);
+    backdrop-filter: blur(4px);
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .modal {
+    background: var(--cream);
+    max-width: 620px;
+    width: 100%;
+    max-height: 88vh;
+    overflow-y: auto;
+    position: relative;
+    transform: translateY(24px);
+    transition: transform 0.35s cubic-bezier(.23,1,.32,1);
+    border: 1px solid var(--rule);
+  }
+  .modal-overlay.open .modal {
+    transform: translateY(0);
+  }
+  .modal-header {
+    padding: 32px 36px 24px;
+    border-bottom: 1px solid var(--faint);
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .modal-icon { font-size: 36px; flex-shrink: 0; line-height: 1; }
+  .modal-icon svg { width: 40px; height: 40px; }
+  .modal-title-block {}
+  .modal-kicker {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 5px;
+  }
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .modal-close {
+    position: absolute;
+    top: 18px; right: 20px;
+    background: none; border: none;
+    font-size: 22px;
+    color: var(--ink2);
+    cursor: pointer;
+    opacity: 0.4;
+    transition: opacity 0.2s;
+    line-height: 1;
+    padding: 4px 8px;
+  }
+  .modal-close:hover { opacity: 1; }
+  .modal-body { padding: 28px 36px 36px; }
+  .modal-summary {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.75;
+    color: var(--ink2);
+    margin-bottom: 28px;
+    font-style: italic;
+  }
+  .modal-projects-label {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .modal-projects-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--faint);
+  }
+  .modal-project {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--faint);
+  }
+  .modal-project:last-child { border-bottom: none; }
+  .modal-project-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .modal-project-desc {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 15.5px;
+    line-height: 1.65;
+    color: var(--ink2);
   }
 
   .tool-tile::before {
@@ -494,6 +610,102 @@
   .skill-fill.d6 { animation-delay: 1.1s; }
   @keyframes barIn { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
+  /* ── EXPERIENCE ────────────────────────────────────── */
+  .exp-section { animation: riseIn 1s 0.58s ease both; }
+
+  .exp-list { display: flex; flex-direction: column; gap: 0; }
+
+  .exp-item {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 28px;
+    padding: 32px 0;
+    border-bottom: 1px solid var(--faint);
+  }
+  .exp-item:first-child { border-top: 1px solid var(--faint); }
+
+  .exp-left { text-align: right; padding-top: 4px; }
+  .exp-dates {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--gold);
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+  .exp-category {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 8px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink2);
+    opacity: 0.45;
+  }
+
+  .exp-right {}
+  .exp-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 900;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-bottom: 3px;
+  }
+  .exp-company {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--rust);
+    margin-bottom: 14px;
+  }
+  .exp-summary {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink2);
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+  .exp-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+  .exp-bullets li {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 15.5px;
+    line-height: 1.65;
+    color: var(--ink2);
+    padding-left: 18px;
+    position: relative;
+  }
+  .exp-bullets li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 12px;
+    top: 3px;
+  }
+  .exp-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 16px;
+  }
+  .exp-tag {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 8px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid var(--faint);
+    color: var(--ink2);
+    opacity: 0.7;
+  }
+
   /* ── PULL QUOTE ────────────────────────────────────── */
   .pull-quote {
     margin: 64px 0 0;
@@ -632,6 +844,8 @@
     .cta-btns { flex-direction: row; }
     .pipeline-track::before { display: none; }
     .edu-item { grid-template-columns: 60px 1fr; gap: 14px; }
+    .exp-item { grid-template-columns: 1fr; gap: 6px; }
+    .exp-left { text-align: left; }
   }
   @media (max-width: 480px) {
     .tools-mosaic { grid-template-columns: repeat(3, 1fr); }
@@ -785,31 +999,29 @@
   <div class="tools-section">
     <div class="tools-mosaic">
 
-      <div class="tool-tile t-os">
+      <div class="tool-tile t-os" data-tool="linux">
         <div class="tool-emoji">🐧</div>
         <div class="tool-lbl">Linux</div>
       </div>
 
-      <div class="tool-tile t-cloud">
+      <div class="tool-tile t-cloud" data-tool="aws">
         <div class="tool-emoji">☁️</div>
         <div class="tool-lbl">AWS</div>
       </div>
 
-      <div class="tool-tile t-iac">
+      <div class="tool-tile t-iac" data-tool="terraform">
         <div class="tool-emoji">🏗️</div>
         <div class="tool-lbl">Terraform</div>
       </div>
 
-      <div class="tool-tile t-cont">
-        <!-- Docker logo SVG -->
+      <div class="tool-tile t-cont" data-tool="docker">
         <svg class="tool-logo" viewBox="0 0 100 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Docker">
           <path d="M55.7 27.3H46v9.4h9.7v-9.4zm0-10.5H46v9.5h9.7v-9.5zm-10.6 10.5h-9.7v9.4h9.7v-9.4zm0-10.5h-9.7v9.5h9.7v-9.5zm0-10.4h-9.7v9.4h9.7V6.4zm10.6 10.4H46v9.5h9.7v-9.5zm10.6 10.5H56.6v9.4h9.7v-9.4zm10.6 0H67.2v9.4h9.7v-9.4zm0-10.4H67.2v9.4h9.7v-9.4zM93.6 33c-1.4-1-4-1.4-6.1-1-0.3-2.1-1.4-4-3.4-5.5l-1.2-0.8-0.8 1.2c-1.5 2.3-1.9 6-0.4 8.5-0.7 0.4-2.2 1-4.1 0.9H2.5c-0.5 3.1 0 7.8 2.8 11.1 2.7 3.1 6.7 4.7 12.2 4.7 11.6 0 20.2-5.3 24.2-15h2.1c1.4 0 4.9-0.1 6.8-2.9h0.2s0.9 2.4 4 2.9h1.5c1.3 0 4.6-0.5 6.7-2.8l0.3 0.2z" fill="#2496ED"/>
         </svg>
         <div class="tool-lbl">Docker</div>
       </div>
 
-      <div class="tool-tile t-cont">
-        <!-- Docker Desktop logo (same whale, labeled Desktop) -->
+      <div class="tool-tile t-cont" data-tool="docker-desktop">
         <svg class="tool-logo" viewBox="0 0 100 72" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Docker Desktop">
           <path d="M55.7 27.3H46v9.4h9.7v-9.4zm0-10.5H46v9.5h9.7v-9.5zm-10.6 10.5h-9.7v9.4h9.7v-9.4zm0-10.5h-9.7v9.5h9.7v-9.5zm0-10.4h-9.7v9.4h9.7V6.4zm10.6 10.4H46v9.5h9.7v-9.5zm10.6 10.5H56.6v9.4h9.7v-9.4zm10.6 0H67.2v9.4h9.7v-9.4zm0-10.4H67.2v9.4h9.7v-9.4zM93.6 33c-1.4-1-4-1.4-6.1-1-0.3-2.1-1.4-4-3.4-5.5l-1.2-0.8-0.8 1.2c-1.5 2.3-1.9 6-0.4 8.5-0.7 0.4-2.2 1-4.1 0.9H2.5c-0.5 3.1 0 7.8 2.8 11.1 2.7 3.1 6.7 4.7 12.2 4.7 11.6 0 20.2-5.3 24.2-15h2.1c1.4 0 4.9-0.1 6.8-2.9h0.2s0.9 2.4 4 2.9h1.5c1.3 0 4.6-0.5 6.7-2.8l0.3 0.2z" fill="#086DD7"/>
           <rect x="10" y="58" width="80" height="8" rx="3" fill="#086DD7" opacity="0.25"/>
@@ -818,41 +1030,37 @@
         <div class="tool-lbl">Docker Desktop</div>
       </div>
 
-      <div class="tool-tile t-cont">
+      <div class="tool-tile t-cont" data-tool="kubernetes">
         <div class="tool-emoji">☸️</div>
         <div class="tool-lbl">Kubernetes</div>
       </div>
 
-      <div class="tool-tile t-cont">
+      <div class="tool-tile t-cont" data-tool="openlens">
         <div class="tool-emoji">🔭</div>
         <div class="tool-lbl">OpenLens</div>
       </div>
 
-      <div class="tool-tile t-iac">
+      <div class="tool-tile t-iac" data-tool="helm">
         <div class="tool-emoji">⛵</div>
         <div class="tool-lbl">Helm</div>
       </div>
 
-      <div class="tool-tile t-ci">
+      <div class="tool-tile t-ci" data-tool="ansible">
         <div class="tool-emoji">⚙️</div>
         <div class="tool-lbl">Ansible</div>
       </div>
 
-      <!-- ArgoCD tile with SVG logo -->
-      <div class="tool-tile t-ci">
+      <div class="tool-tile t-ci" data-tool="argocd">
         <svg class="tool-logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Argo CD">
           <circle cx="50" cy="50" r="46" fill="#EF7B4D" opacity="0.15"/>
           <circle cx="50" cy="50" r="38" fill="#EF7B4D" opacity="0.2"/>
-          <!-- Argo stylized helm/octopus mark -->
           <circle cx="50" cy="42" r="14" fill="#EF7B4D"/>
           <circle cx="50" cy="42" r="7" fill="white"/>
-          <!-- tentacles -->
           <path d="M32 56 Q28 66 34 72" stroke="#EF7B4D" stroke-width="4" stroke-linecap="round" fill="none"/>
           <path d="M40 62 Q38 72 44 76" stroke="#EF7B4D" stroke-width="4" stroke-linecap="round" fill="none"/>
           <path d="M50 64 Q50 74 50 80" stroke="#EF7B4D" stroke-width="4" stroke-linecap="round" fill="none"/>
           <path d="M60 62 Q62 72 56 76" stroke="#EF7B4D" stroke-width="4" stroke-linecap="round" fill="none"/>
           <path d="M68 56 Q72 66 66 72" stroke="#EF7B4D" stroke-width="4" stroke-linecap="round" fill="none"/>
-          <!-- face -->
           <circle cx="44" cy="40" r="2.5" fill="#EF7B4D"/>
           <circle cx="56" cy="40" r="2.5" fill="#EF7B4D"/>
           <path d="M44 47 Q50 52 56 47" stroke="#EF7B4D" stroke-width="2" stroke-linecap="round" fill="none"/>
@@ -860,47 +1068,36 @@
         <div class="tool-lbl">Argo CD</div>
       </div>
 
-      <div class="tool-tile t-scm">
+      <div class="tool-tile t-scm" data-tool="github">
         <div class="tool-emoji">🐙</div>
         <div class="tool-lbl">GitHub</div>
       </div>
 
-      <div class="tool-tile t-scm">
+      <div class="tool-tile t-scm" data-tool="gh-actions">
         <div class="tool-emoji">⚡</div>
         <div class="tool-lbl">GH Actions</div>
       </div>
 
-      <div class="tool-tile t-qa">
+      <div class="tool-tile t-qa" data-tool="sonarqube">
         <div class="tool-emoji">🔍</div>
         <div class="tool-lbl">SonarQube</div>
       </div>
 
-      <div class="tool-tile t-art">
+      <div class="tool-tile t-art" data-tool="jfrog">
         <div class="tool-emoji">📦</div>
         <div class="tool-lbl">JFrog</div>
       </div>
 
-      <!-- Datadog tile with SVG logo -->
-      <div class="tool-tile t-obs">
+      <div class="tool-tile t-obs" data-tool="datadog">
         <svg class="tool-logo" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Datadog">
-          <!-- Datadog stylized dog mark -->
           <rect x="18" y="30" width="64" height="44" rx="6" fill="#632CA6"/>
-          <!-- dog face simplified -->
           <ellipse cx="50" cy="50" rx="22" ry="20" fill="#774AA4" opacity="0.6"/>
-          <!-- ears -->
-          <ellipse cx="30" cy="36" rx="10" ry="13" rx="8" fill="#632CA6" transform="rotate(-15 30 36)"/>
-          <ellipse cx="70" cy="36" rx="10" ry="13" rx="8" fill="#632CA6" transform="rotate(15 70 36)"/>
-          <!-- eyes -->
           <circle cx="43" cy="48" r="4" fill="white"/>
           <circle cx="57" cy="48" r="4" fill="white"/>
           <circle cx="44" cy="49" r="2" fill="#1f1235"/>
           <circle cx="58" cy="49" r="2" fill="#1f1235"/>
-          <!-- nose -->
           <ellipse cx="50" cy="57" rx="5" ry="3.5" fill="#1f1235"/>
-          <!-- mouth -->
           <path d="M44 61 Q50 66 56 61" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
-          <!-- DD mark top left -->
-          <text x="20" y="26" font-family="Arial" font-weight="bold" font-size="12" fill="#632CA6">DD</text>
         </svg>
         <div class="tool-lbl">Datadog</div>
       </div>
@@ -908,9 +1105,28 @@
     </div>
   </div>
 
+  <!-- ═══ TOOL MODAL ═══ -->
+  <div class="modal-overlay" id="toolModal" role="dialog" aria-modal="true">
+    <div class="modal" id="modalBox">
+      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      <div class="modal-header">
+        <div class="modal-icon" id="modalIcon"></div>
+        <div class="modal-title-block">
+          <div class="modal-kicker" id="modalKicker"></div>
+          <div class="modal-title" id="modalTitle"></div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="modal-summary" id="modalSummary"></div>
+        <div class="modal-projects-label">Selected Projects</div>
+        <div id="modalProjects"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- ═══ PIPELINE ═══ -->
   <div class="sec-head">
-    <span class="num">IV.</span>
+    <span class="num">V.</span>
     <h2>Delivery Pipeline</h2>
     <div class="rule"></div>
   </div>
@@ -991,7 +1207,7 @@
 
   <!-- ═══ SKILLS ═══ -->
   <div class="sec-head">
-    <span class="num">V.</span>
+    <span class="num">VII.</span>
     <h2>Proficiency</h2>
     <div class="rule"></div>
   </div>
@@ -1050,6 +1266,92 @@
     </div>
   </div>
 
+  <!-- ═══ EXPERIENCE ═══ -->
+  <div class="sec-head">
+    <span class="num">VI.</span>
+    <h2>Experience</h2>
+    <div class="rule"></div>
+  </div>
+
+  <div class="exp-section">
+    <div class="exp-list">
+
+      <!-- iCare Medical -->
+      <div class="exp-item">
+        <div class="exp-left">
+          <div class="exp-dates">2023<br>— Present</div>
+          <div class="exp-category">Cloud · DevOps</div>
+        </div>
+        <div class="exp-right">
+          <div class="exp-role">Cloud &amp; DevOps Engineer</div>
+          <div class="exp-company">iCare Medical</div>
+          <div class="exp-summary">Designed, deployed, and maintained scalable AWS cloud infrastructure while building and maturing the organisation's CI/CD practices and containerisation strategy. Focused on improving reliability, reducing manual toil, and shifting the team toward infrastructure-as-code and GitOps principles.</div>
+          <ul class="exp-bullets">
+            <li>Architected and deployed highly available AWS environments leveraging EC2, Application Load Balancer, and Auto Scaling Groups — achieving 99.9% measured uptime and eliminating single points of failure across production workloads.</li>
+            <li>Authored and maintained modular Terraform configurations to provision and manage the full infrastructure stack, reducing environment deployment time by 40% and enabling consistent, repeatable provisioning across dev, staging, and production.</li>
+            <li>Designed and operated end-to-end CI/CD pipelines using GitHub Actions — encompassing automated testing, Docker image builds, artifact publishing to JFrog, and GitOps-driven deployments via Argo CD to Kubernetes on AWS EKS.</li>
+            <li>Containerised and orchestrated application workloads using Docker and Kubernetes (EKS), authoring Helm charts for environment-parameterised deployments and implementing rolling update strategies to support zero-downtime releases.</li>
+            <li>Established observability practices with Datadog — building infrastructure dashboards, configuring SLO-aligned alerting on latency and error rate, and deploying the Datadog Agent as a DaemonSet to centralise log collection across EKS nodes.</li>
+            <li>Applied SRE fundamentals including error budget tracking, runbook documentation, and blameless post-incident reviews to incrementally improve system reliability and reduce mean time to recovery (MTTR).</li>
+            <li>Automated routine infrastructure and system maintenance tasks using Bash and Python scripts, reducing manual operational overhead and enabling the engineering team to focus on higher-value work.</li>
+            <li>Assisted in the migration of on-premises application workloads to AWS, implementing load balancing and SSL termination via ALB and AWS Certificate Manager (ACM) and re-platforming services to run as containerised workloads on ECS and EKS.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">AWS</span><span class="exp-tag">Terraform</span><span class="exp-tag">Kubernetes</span>
+            <span class="exp-tag">Docker</span><span class="exp-tag">Helm</span><span class="exp-tag">Argo CD</span>
+            <span class="exp-tag">GitHub Actions</span><span class="exp-tag">JFrog</span><span class="exp-tag">Datadog</span>
+            <span class="exp-tag">Ansible</span><span class="exp-tag">SonarQube</span><span class="exp-tag">Linux</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- McKesson -->
+      <div class="exp-item">
+        <div class="exp-left">
+          <div class="exp-dates">2021<br>— 2022</div>
+          <div class="exp-category">IT Support</div>
+        </div>
+        <div class="exp-right">
+          <div class="exp-role">Technical Support Specialist — TPI Help Desk</div>
+          <div class="exp-company">McKesson</div>
+          <div class="exp-summary">Provided remote technical support to pharmaceutical customers using third-party interface ordering systems, developing a strong foundation in incident management, system troubleshooting, and technical documentation in a high-volume enterprise environment.</div>
+          <ul class="exp-bullets">
+            <li>Diagnosed and resolved complex technical issues for Pharma customers across phone, chat, and email channels — maintaining response SLAs and logging all incidents accurately within Salesforce for trend tracking and escalation management.</li>
+            <li>Investigated, reproduced, and escalated recurring system faults to engineering teams with structured problem descriptions, supporting faster root cause analysis and permanent fixes — an early exposure to SRE-adjacent incident workflows.</li>
+            <li>Contributed to knowledge base documentation and internal runbooks, standardising resolution steps for the most common customer issues and reducing average handle time across the support team.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">Incident Management</span><span class="exp-tag">Salesforce</span>
+            <span class="exp-tag">Technical Troubleshooting</span><span class="exp-tag">SLA Adherence</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- US Army -->
+      <div class="exp-item">
+        <div class="exp-left">
+          <div class="exp-dates">2018<br>— 2021</div>
+          <div class="exp-category">Military Service</div>
+        </div>
+        <div class="exp-right">
+          <div class="exp-role">Service Member — Maintenance &amp; Operations</div>
+          <div class="exp-company">United States Army</div>
+          <div class="exp-summary">Served as a maintenance and logistics specialist responsible for the operational readiness of a diverse fleet of military equipment. Developed discipline, technical rigour, and team leadership skills in a high-accountability environment where system reliability was mission-critical.</div>
+          <ul class="exp-bullets">
+            <li>Planned, coordinated, and directed field and sustainment maintenance operations across wheeled and tracked vehicles, power generation, and utility equipment — ensuring asset availability and operational readiness under demanding conditions.</li>
+            <li>Trained and mentored incoming personnel on technical procedures and administrative requirements, accelerating team integration and maintaining unit standards under time-constrained operational cycles.</li>
+            <li>Conducted semi-annual, annual, and bi-annual equipment inventories, maintaining meticulous records of asset condition and serviceability — building the documentation discipline that translates directly to infrastructure change management today.</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="exp-tag">Operations Management</span><span class="exp-tag">Team Leadership</span>
+            <span class="exp-tag">Systems Maintenance</span><span class="exp-tag">Technical Training</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <!-- ═══ PULL QUOTE ═══ -->
   <div class="pull-quote">
     <blockquote>
@@ -1081,5 +1383,208 @@
   </div>
 
 </div>
+<script>
+const TOOLS = {
+  linux: {
+    icon: '🐧',
+    kicker: 'Operating System · Systems Administration',
+    title: 'Linux',
+    summary: 'Linux is my daily driver and the foundation of nearly every environment I work in. Over three years I\'ve grown comfortable managing servers, writing shell scripts, and diagnosing issues at the OS level across Ubuntu, CentOS, and Amazon Linux.',
+    projects: [
+      { name: 'EC2 Instance Hardening', desc: 'Configured and hardened a fleet of Ubuntu EC2 instances for a staging environment — setting up SSH key-only auth, disabling unused services with systemctl, and applying CIS benchmark checks to reduce the attack surface before production promotion.' },
+      { name: 'Automated Log Rotation & Monitoring', desc: 'Wrote a set of Bash scripts to manage log rotation across multiple application servers, shipping compressed archives to S3 on a cron schedule and alerting via a simple webhook when disk usage crossed 80%.' },
+      { name: 'Service Troubleshooting & Runbooks', desc: 'Built internal runbooks documenting common Linux failure scenarios — covering journalctl log triage, stuck systemd services, and network diagnostic commands — cutting mean time to resolution for on-call incidents.' }
+    ]
+  },
+  aws: {
+    icon: '☁️',
+    kicker: 'Cloud Platform · Infrastructure',
+    title: 'Amazon Web Services',
+    summary: 'AWS is my primary cloud platform. I\'ve worked across a solid range of core services — mostly around compute, networking, and storage — and have grown comfortable designing environments that balance cost, reliability, and security.',
+    projects: [
+      { name: 'Multi-Tier VPC Setup', desc: 'Designed and deployed a multi-tier VPC with public and private subnets across two availability zones, configuring NAT gateways, security groups, and route tables to host a containerised web application on ECS.' },
+      { name: 'S3 Lifecycle & Cost Reduction', desc: 'Audited an S3 bucket used for build artifacts and application logs, applied lifecycle rules to transition older objects to Glacier, and set expiry policies — reducing monthly storage costs noticeably with no impact to active workflows.' },
+      { name: 'IAM Role & Policy Cleanup', desc: 'Reviewed and restructured IAM roles across a dev/staging environment that had grown organically, replacing overly permissive inline policies with scoped managed policies following least-privilege principles.' }
+    ]
+  },
+  terraform: {
+    icon: '🏗️',
+    kicker: 'Infrastructure as Code · Provisioning',
+    title: 'Terraform',
+    summary: 'Terraform is my go-to tool for provisioning and managing cloud infrastructure. I write modular, reusable code and lean on remote state and workspaces to manage environments cleanly without duplicating configuration.',
+    projects: [
+      { name: 'Modular AWS Infrastructure', desc: 'Built a Terraform project split into reusable modules for VPC, EC2, RDS, and IAM — allowing the team to spin up consistent dev and staging environments with a single variable file change and a terraform apply.' },
+      { name: 'Remote State with S3 & DynamoDB', desc: 'Migrated a project from local state to remote state stored in S3 with a DynamoDB lock table, preventing state conflicts when multiple engineers worked on infrastructure simultaneously.' },
+      { name: 'EKS Cluster Provisioning', desc: 'Used the official AWS EKS Terraform module to provision a managed Kubernetes cluster, including node groups, OIDC provider configuration, and the necessary IAM roles for the cluster and worker nodes.' }
+    ]
+  },
+  docker: {
+    icon: '🐳',
+    kicker: 'Containerisation · Runtime',
+    title: 'Docker',
+    summary: 'Docker is a daily tool for me — from writing Dockerfiles for application services to managing local multi-container environments. I focus on keeping images lean, builds reproducible, and local development as close to production as possible.',
+    projects: [
+      { name: 'Multi-Stage Dockerfile Optimisation', desc: 'Refactored a bloated Node.js application image using a multi-stage build — separating the build stage from the runtime image — bringing the final image size down significantly and reducing CI build times.' },
+      { name: 'Docker Compose for Local Dev', desc: 'Set up a Docker Compose environment for a microservices project, wiring together the API, database, and a Redis cache so developers could spin up the full stack locally with a single command and no manual configuration.' },
+      { name: 'Private Registry Push in CI', desc: 'Integrated Docker build and push steps into a GitHub Actions pipeline, tagging images with the Git commit SHA and pushing to AWS ECR, enabling traceable deployments tied to specific code changes.' }
+    ]
+  },
+  'docker-desktop': {
+    icon: '🐳',
+    kicker: 'Local Container Management · GUI',
+    title: 'Docker Desktop',
+    summary: 'Docker Desktop is my local interface for managing containers, volumes, and images day-to-day. I use it alongside the CLI for a quick visual check on running containers, inspecting logs, and managing resource limits on my dev machine.',
+    projects: [
+      { name: 'Local Kubernetes Cluster', desc: 'Enabled the built-in Kubernetes cluster in Docker Desktop to test Kubernetes manifests locally before pushing changes to a remote cluster — useful for validating Helm chart templates and ConfigMaps without consuming cloud resources.' },
+      { name: 'Resource Tuning for Dev Environments', desc: 'Configured Docker Desktop memory and CPU limits to match the production container resource requests, helping catch out-of-memory errors early in local testing rather than discovering them in staging.' },
+      { name: 'Volume & Network Debugging', desc: 'Used Docker Desktop\'s GUI to inspect named volumes and bridge networks when tracking down a data persistence issue in a local Compose setup — quicker than navigating nested docker inspect JSON manually.' }
+    ]
+  },
+  kubernetes: {
+    icon: '☸️',
+    kicker: 'Container Orchestration · Cluster Management',
+    title: 'Kubernetes',
+    summary: 'Kubernetes is where I spend a good chunk of my time — writing manifests, managing deployments, and keeping workloads healthy. I\'ve worked mostly with AWS EKS and am comfortable with the core resource types and troubleshooting patterns you reach for regularly.',
+    projects: [
+      { name: 'EKS Deployment with Rolling Updates', desc: 'Configured Deployments with appropriate replica counts, resource requests and limits, and rolling update strategy to achieve zero-downtime releases for a containerised API running on AWS EKS.' },
+      { name: 'ConfigMap & Secret Management', desc: 'Structured ConfigMaps and Secrets to externalise environment-specific configuration from container images, using Kubernetes-native references inside pod specs rather than baking values into Dockerfiles.' },
+      { name: 'CrashLoopBackOff Triage', desc: 'Diagnosed and resolved a recurring CrashLoopBackOff on a newly deployed service — working through kubectl logs, describe, and exec to identify a missing environment variable that was causing the app to exit on startup.' }
+    ]
+  },
+  openlens: {
+    icon: '🔭',
+    kicker: 'Cluster Observability · GUI',
+    title: 'OpenLens',
+    summary: 'OpenLens is my GUI companion for Kubernetes — I use it alongside kubectl to visually browse cluster resources, follow live pod logs, and quickly spot unhealthy workloads without writing a query every time.',
+    projects: [
+      { name: 'Live Log Tailing During Deployments', desc: 'Used OpenLens to tail logs across multiple pods simultaneously during a rolling deployment, which made it much faster to spot errors appearing in specific instances before they triggered a full rollback.' },
+      { name: 'Resource Usage Spot Checks', desc: 'Monitored CPU and memory usage across node groups during a load test using the built-in metrics view in OpenLens, identifying two pods consistently hitting their memory limits and adjusting resource requests accordingly.' },
+      { name: 'Namespace Navigation for Multi-Env Clusters', desc: 'Managed multiple namespaces (dev, staging) within a shared EKS cluster using OpenLens workspaces and namespace filters — keeping context switching clean when working across environments in the same session.' }
+    ]
+  },
+  helm: {
+    icon: '⛵',
+    kicker: 'Kubernetes Package Manager · Templating',
+    title: 'Helm',
+    summary: 'I use Helm to package and deploy Kubernetes applications consistently across environments. It\'s become a core part of how I manage releases — parameterising configuration through values files rather than maintaining separate manifests per environment.',
+    projects: [
+      { name: 'Custom Chart for Microservice Deployments', desc: 'Wrote a Helm chart for a Node.js microservice, templating the Deployment, Service, and HorizontalPodAutoscaler with values files for dev, staging, and prod — eliminating duplicated YAML and making environment-specific config explicit.' },
+      { name: 'Third-Party Chart Customisation', desc: 'Deployed an ingress-nginx controller from the official Helm chart, overriding default values to configure custom annotations, replica counts, and resource limits appropriate for the cluster\'s sizing.' },
+      { name: 'ArgoCD + Helm Integration', desc: 'Set up ArgoCD Application resources pointing to a Helm chart repository, enabling GitOps-driven deployments where a values file change in Git automatically triggered a sync and rollout to the target cluster.' }
+    ]
+  },
+  ansible: {
+    icon: '⚙️',
+    kicker: 'Configuration Management · Automation',
+    title: 'Ansible',
+    summary: 'I use Ansible for configuration management and server provisioning tasks where Terraform ends and OS-level work begins. Playbooks keep server configuration consistent and repeatable across environments without manual SSH sessions.',
+    projects: [
+      { name: 'Server Provisioning Playbook', desc: 'Wrote an Ansible playbook to provision freshly launched EC2 instances — installing required packages, setting up users, configuring sshd, and applying basic security hardening — turning a 30-minute manual task into a two-minute automated one.' },
+      { name: 'Application Deployment Automation', desc: 'Created a playbook to deploy a Python application to a set of servers, handling service restarts with systemd, environment variable injection from a vault-encrypted vars file, and rollback by re-deploying the previous release tag.' },
+      { name: 'Inventory Management for Multi-Env Fleets', desc: 'Structured an Ansible inventory with group_vars to manage dev and staging server groups separately, so the same playbook could target either environment by passing a single -i flag without modifying the playbook itself.' }
+    ]
+  },
+  argocd: {
+    icon: '🔄',
+    kicker: 'GitOps · Continuous Delivery',
+    title: 'Argo CD',
+    summary: 'Argo CD is how I implement GitOps in Kubernetes environments. Having the cluster state declared in Git and automatically reconciled by ArgoCD has made deployments more auditable and drift far easier to catch and fix.',
+    projects: [
+      { name: 'GitOps Pipeline for Microservices', desc: 'Configured ArgoCD to watch a Git repository containing Helm chart values files, so pushing a new image tag to the values file automatically triggered a sync — making image promotions a Git commit rather than a manual kubectl command.' },
+      { name: 'Multi-Environment App Setup', desc: 'Set up separate ArgoCD Application resources for dev and staging environments, each pointing to environment-specific values files in the same Helm chart repo, with auto-sync enabled for dev and manual sync required for staging.' },
+      { name: 'Drift Detection & Recovery', desc: 'Used ArgoCD\'s out-of-sync detection to catch a case where a manual kubectl edit had been applied directly to a Deployment, allowing the team to review the change and either codify it in Git or revert it — reinforcing the GitOps workflow.' }
+    ]
+  },
+  github: {
+    icon: '🐙',
+    kicker: 'Source Control · Collaboration',
+    title: 'GitHub',
+    summary: 'GitHub is central to how I and the teams I\'ve worked with manage code and infrastructure. Beyond basic version control, I lean on branch protection rules, pull request reviews, and repository structure to keep changes traceable and reviewed.',
+    projects: [
+      { name: 'Infrastructure Repo Branch Strategy', desc: 'Set up a GitHub repository for Terraform infrastructure code with branch protection on main, requiring at least one reviewer approval and a passing terraform plan comment before merging — catching misconfigurations before they reached the environment.' },
+      { name: 'PR-Triggered Pipeline Workflows', desc: 'Configured GitHub Actions workflows to trigger on pull request events, running linting, security scans, and a Terraform plan whose output was posted back as a PR comment for reviewers to inspect before approving.' },
+      { name: 'Repository Secrets for CI/CD', desc: 'Managed AWS credentials and registry tokens as GitHub repository secrets, referencing them in Actions workflows rather than hardcoding values — keeping sensitive data out of code while keeping pipelines functional.' }
+    ]
+  },
+  'gh-actions': {
+    icon: '⚡',
+    kicker: 'CI/CD · Workflow Automation',
+    title: 'GitHub Actions',
+    summary: 'GitHub Actions is my primary CI/CD tool. I\'ve built workflows for everything from simple linting checks to full build-test-push-deploy pipelines, and I appreciate how tightly it integrates with the repository without needing a separate server to maintain.',
+    projects: [
+      { name: 'Full CI/CD Pipeline for a Node.js API', desc: 'Built a workflow that runs on push to main — linting the code, running unit tests, building and tagging a Docker image with the commit SHA, pushing to AWS ECR, and updating a Helm values file to trigger an ArgoCD sync.' },
+      { name: 'Reusable Workflow for Terraform', desc: 'Created a reusable GitHub Actions workflow for Terraform that runs fmt, validate, and plan on PRs and applies on merge to main — shared across multiple infrastructure repositories using the workflow_call trigger.' },
+      { name: 'Environment-Gated Deployments', desc: 'Used GitHub Actions Environments with required reviewers to gate production deployments — the workflow would pause after staging and wait for a manual approval before continuing with the production apply step.' }
+    ]
+  },
+  sonarqube: {
+    icon: '🔍',
+    kicker: 'Code Quality · Static Analysis',
+    title: 'SonarQube',
+    summary: 'SonarQube is the code quality gate in the pipelines I\'ve worked with. It catches bugs, code smells, and potential security vulnerabilities in the CI stage before code gets anywhere near a deployment.',
+    projects: [
+      { name: 'Quality Gate Integration in CI', desc: 'Integrated SonarQube analysis into a GitHub Actions pipeline so that every pull request triggered a scan, with the workflow set to fail if the quality gate was not passed — blocking merges on new critical issues.' },
+      { name: 'Reducing Technical Debt on Legacy Code', desc: 'Used SonarQube reports to identify and prioritise the highest-severity code smells in a legacy Python service, working through them incrementally over several sprints to bring the quality gate from failing to consistently passing.' },
+      { name: 'Security Hotspot Review', desc: 'Reviewed and triaged SonarQube-flagged security hotspots on an API codebase, confirming safe usages and fixing genuine issues around hardcoded strings and improper exception handling that the scan surfaced.' }
+    ]
+  },
+  jfrog: {
+    icon: '📦',
+    kicker: 'Artifact Management · Binary Repository',
+    title: 'JFrog Artifactory',
+    summary: 'I\'ve used JFrog Artifactory as a centralised artifact repository for storing Docker images, build outputs, and dependencies. It sits in the middle of the CI/CD pipeline as the trusted source for anything that gets promoted to an environment.',
+    projects: [
+      { name: 'Docker Image Registry for CI Pipeline', desc: 'Configured a CI pipeline to push Docker images to a JFrog Artifactory Docker repository after a successful build, using the image digest as the reference pulled by the deployment stage to ensure exactly what was tested gets deployed.' },
+      { name: 'Artifact Promotion Between Environments', desc: 'Set up a promotion workflow where build artifacts validated in staging were copied to a production-ready repository in JFrog rather than rebuilt — ensuring the binary promoted to prod was identical to what was tested.' },
+      { name: 'Cleanup Policy for Old Artifacts', desc: 'Configured retention policies in JFrog to automatically remove artifacts older than 30 days from development repositories, preventing unbounded storage growth without impacting the tagged releases kept in production repos.' }
+    ]
+  },
+  datadog: {
+    icon: '📊',
+    kicker: 'Observability · Monitoring & Alerting',
+    title: 'Datadog',
+    summary: 'Datadog is my observability platform of choice for monitoring infrastructure and application health. I use it for dashboards, metric-based alerts, and log aggregation — giving the team visibility into what\'s happening across environments without needing to SSH into individual servers.',
+    projects: [
+      { name: 'Infrastructure Dashboard Setup', desc: 'Built a Datadog dashboard aggregating key metrics — CPU, memory, disk, and network — across EC2 instances and EKS nodes, giving the team a single pane of glass for environment health during and after deployments.' },
+      { name: 'Alert Configuration for Production SLOs', desc: 'Defined Datadog monitors on API response time and error rate, setting thresholds aligned with the team\'s SLO targets and routing alerts to a Slack channel so on-call engineers were notified before users started reporting issues.' },
+      { name: 'Log Aggregation from EKS', desc: 'Deployed the Datadog Agent as a DaemonSet on EKS to collect container logs and ship them to Datadog Log Management, enabling centralized log search and the ability to correlate logs with infrastructure metrics in the same interface.' }
+    ]
+  }
+};
+
+const overlay = document.getElementById('toolModal');
+const closeBtn = document.getElementById('modalClose');
+
+function openModal(key) {
+  const t = TOOLS[key];
+  if (!t) return;
+  document.getElementById('modalIcon').textContent = t.icon;
+  document.getElementById('modalKicker').textContent = t.kicker;
+  document.getElementById('modalTitle').textContent = t.title;
+  document.getElementById('modalSummary').textContent = t.summary;
+  const proj = document.getElementById('modalProjects');
+  proj.innerHTML = t.projects.map(p => `
+    <div class="modal-project">
+      <div class="modal-project-name">${p.name}</div>
+      <div class="modal-project-desc">${p.desc}</div>
+    </div>
+  `).join('');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.tool-tile[data-tool]').forEach(tile => {
+  tile.addEventListener('click', () => openModal(tile.dataset.tool));
+});
+
+closeBtn.addEventListener('click', closeModal);
+overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
 </body>
 </html>
