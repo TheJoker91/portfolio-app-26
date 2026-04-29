@@ -1,0 +1,17 @@
+name: First Run
+on: push
+jobs:
+    Code Checkout:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Code Checkout
+              uses: actions/checkout@v4
+
+            - name: Build Image
+              run: docker build -t thejoker91/portfolio-app:4.0 .
+
+            - name: List Images
+              run: docker images
+
+            - name: Create Image Using The New Image
+              run: docker run -d --name portfolio-app-4.0 -p 8090:80 thejoker91/portfolio-app:4.0
