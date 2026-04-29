@@ -15,10 +15,10 @@ jobs:
 
             - name: Build Image
               run: |
-                docker build -t ${{ secrets.DOCKER_USERNAME }}/portfolio-app:4.0-${{ github.run_number }} .
-                docker build -t ${{ secrets.DOCKER_USERNAME }}/portfolio-app:4.0 .
+                docker build -t ${{ secrets.DOCKER_USERNAME }}/portfolio-app1:${{ github.run_number }} .
+                docker build -t ${{ secrets.DOCKER_USERNAME }}/portfolio-app1 .
 
             - name: Push Image To DockerHUb
               run: |
-                docker push ${{ secrets.DOCKER_USERNAME }}/portfolio-app:4.0-${{ github.run_number }}
-                docker push ${{ secrets.DOCKER_USERNAME }}/portfolio-app:4.0
+                docker push ${{ secrets.DOCKER_USERNAME }}/portfolio-app1:${{ github.run_number }}
+                docker push ${{ secrets.DOCKER_USERNAME }}/portfolio-app1
