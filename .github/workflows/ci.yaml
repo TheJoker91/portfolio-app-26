@@ -1,0 +1,17 @@
+name: portfolio-app pipeline v1
+on: push
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Uptime
+              run: uptime
+            - name: Number Of Processors
+              run: nproc
+
+
+    test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Hello
+              run: echo hello
