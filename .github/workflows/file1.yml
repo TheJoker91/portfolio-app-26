@@ -22,3 +22,20 @@ jobs:
               run: |
                 docker push ${{ secrets.DOCKER_USERNAME }}/portfolio-app1:${{ github.run_number }}
                 docker push ${{ secrets.DOCKER_USERNAME }}/portfolio-app1
+
+
+
+    Code-Deploy:
+        needs: Code-Checkout
+        runs-on: ubuntu-latest
+        steps:
+            - name: Execute remote SSH commands using SSH key
+              uses: appleboy/ssh-action@v1
+              with:
+                host: ${{ secrets.SSH_HOST }}
+                username: ${{ secrets.SSH_USERNAME }}
+                key: ${{ secrets.SSH_KEY }}
+                # port: ${{ secrets.PORT }}
+                script: |
+                    docker rm -f portfolio-app1 || echo "No such container found. Skipping removal..."
+                    docker run -d --name portfolio-app1 -p 8082:80 ${{ secrets.DOCKER_USERNAME }}/portfolio-app1
