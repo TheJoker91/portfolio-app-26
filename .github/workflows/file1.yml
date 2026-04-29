@@ -18,6 +18,3 @@ jobs:
 
             - name: Push Image To DockerHUb
               run: docker push ${{ secrets.DOCKER_USERNAME }}/portfolio-app:4.0
-
-            - name: Create Image Using The New Image
-              run: docker run -d --name portfolio-app-4.0 -p 8091:80 thejoker91/portfolio-app:4.0
