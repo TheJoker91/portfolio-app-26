@@ -1,4 +1,4 @@
-name: portfolio-app pipeline v1
+name: demo pipeline
 on: push
 jobs:
     build:
