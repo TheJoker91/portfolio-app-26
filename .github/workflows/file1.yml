@@ -38,5 +38,5 @@ jobs:
                 # port: ${{ secrets.PORT }}
                 script: |
                     docker rm -f portfolio-app1 || echo "No such container found. Skipping removal..."
-                    docker rmi -f ${{ secrets.DOCKER_USERNAME}}/portfolio-app1 || echo "Image does not exists. Continuing..."
+                    docker rmi -f ${{ secrets.DOCKER_USERNAME }}/portfolio-app1 || echo "Image does not exists. Continuing..."
                     docker run -d --name portfolio-app1 -p 8082:80 ${{ secrets.DOCKER_USERNAME }}/portfolio-app1
