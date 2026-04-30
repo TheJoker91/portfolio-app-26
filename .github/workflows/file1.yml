@@ -1,4 +1,4 @@
-name: First Run
+name: POrtfolio-app
 on: push
 jobs:
     Code-Checkout:
