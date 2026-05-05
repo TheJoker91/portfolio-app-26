@@ -1,4 +1,4 @@
-name: POrtfolio-app
+name: Portfolio-app
 on: push
 jobs:
     Code-Checkout:
